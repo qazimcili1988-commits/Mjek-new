@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1cb0f6" />
+      <stop offset="100%" stop-color="#0079b8" />
+    </linearGradient>
+    <!-- Cross/Plus Gradient -->
+    <linearGradient id="crossGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e0f2fe" />
+    </linearGradient>
+    <!-- Accent Gradient -->
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#58cc02" />
+      <stop offset="100%" stop-color="#46a302" />
+    </linearGradient>
+  </defs>
+
+  <!-- Smooth Rounded Squircle Background (Duolingo style) -->
+  <rect x="0" y="0" width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- Shadow effect for the book and cross -->
+  <rect x="120" y="128" width="272" height="256" rx="32" fill="#000000" opacity="0.15" transform="translate(0, 12)" />
+
+  <!-- The Open Book Base -->
+  <path d="M120,320 C180,320 220,340 256,360 C292,340 332,320 392,320 L392,160 C332,160 292,180 256,200 C220,180 180,160 120,160 Z" fill="#ffffff" />
+  
+  <!-- Book Pages & Split -->
+  <path d="M256,200 L256,360" stroke="#0079b8" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Stethoscope / Medical Cross on Book page -->
+  <g transform="translate(256, 260) scale(0.9)">
+    <!-- Vertical bar -->
+    <rect x="-24" y="-72" width="48" height="144" rx="16" fill="url(#accentGrad)" />
+    <!-- Horizontal bar -->
+    <rect x="-72" y="-24" width="144" height="48" rx="16" fill="url(#accentGrad)" />
+    <!-- White inner cross accent -->
+    <rect x="-10" y="-50" width="20" height="100" rx="8" fill="#ffffff" opacity="0.3" />
+    <rect x="-50" y="-10" width="100" height="20" rx="8" fill="#ffffff" opacity="0.3" />
+  </g>
+
+  <!-- Decorative graduation cap tassel or ribbon at bottom -->
+  <path d="M256,360 L280,390 L265,395 Z" fill="url(#accentGrad)" />
+</svg>

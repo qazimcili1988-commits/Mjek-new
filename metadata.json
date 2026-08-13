@@ -1,0 +1,6 @@
+{
+  "name": "Mjek Hyrje",
+  "description": "Përgatitu për provimet e infermierisë dhe mjekësisë me pyetje klinike me shumë zgjedhje, shpjegime të detajuara, sistem Spaced Repetition dhe ndjekje progresi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

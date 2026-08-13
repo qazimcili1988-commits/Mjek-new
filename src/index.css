@@ -1,0 +1,908 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Duolingo Duo-themed utility variables and classes optimized for Eye Comfort (Asthenopia Prevention) */
+:root {
+  /* Comfort-tuned palette to minimize blue-light fatigue and pupil strain */
+  --duo-green: #48a602;       /* Sage-emerald tone - 15% softer than fluorescent green */
+  --duo-green-dark: #3a8501;
+  --duo-blue: #1c99d6;        /* Calming ocean clinical blue - less aggressive blue-light emissions */
+  --duo-blue-dark: #1479ab;
+  --duo-orange: #e07400;      /* Gentle ochre/marigold orange */
+  --duo-orange-dark: #b85e00;
+  --duo-yellow: #dda300;      /* Amber honey - highly visible with high contrast ratio on white */
+  --duo-yellow-dark: #b88600;
+  --duo-red: #db3f3f;         /* Rose coral - non-fluorescent warm red */
+  --duo-red-dark: #b82d2d;
+
+  /* WCAG AA Compliant Text Colors on colored buttons */
+  --duo-btn-green-text: #ffffff;
+  --duo-btn-blue-text: #ffffff;
+  --duo-btn-orange-text: #ffffff;
+  --duo-btn-yellow-text: #1a202c;
+  --duo-btn-red-text: #ffffff;
+
+  /* Restful option card colors for eye health */
+  --comfort-blue-bg: #f0f9ff;   /* Soft, warm water/ice tint - very soothing, low strain */
+  --comfort-blue-border: #9ad6f5;
+  --comfort-blue-text: #0369a1;
+
+  --comfort-green-bg: #f2fdf5;  /* Refreshing, calming soft mint green */
+  --comfort-green-border: #8ce4a8;
+  --comfort-green-text: #15803d;
+
+  --comfort-red-bg: #fff5f5;    /* Soft peach coral tint */
+  --comfort-red-border: #fca5a5;
+  --comfort-red-text: #b91c1c;
+}
+
+/* Base styles default to Soft Light Warm Off-White */
+body, html, #root {
+  background-color: #f5f7f8;  /* Anti-glare soft warm off-white */
+  color: #1e293b;            /* Soft charcoal text */
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom Duolingo-style bubbly button components */
+.duo-btn-green {
+  background-color: var(--duo-green);
+  border-bottom: 4px solid var(--duo-green-dark);
+  color: var(--duo-btn-green-text);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.duo-btn-green:hover:not(:disabled) {
+  background-color: #61e002;
+  transform: translateY(-1px);
+  border-bottom-width: 5px;
+}
+.duo-btn-green:active:not(:disabled) {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+}
+.duo-btn-green:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.duo-btn-blue {
+  background-color: var(--duo-blue);
+  border-bottom: 4px solid var(--duo-blue-dark);
+  color: var(--duo-btn-blue-text);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.duo-btn-blue:hover:not(:disabled) {
+  background-color: #24bfff;
+  transform: translateY(-1px);
+  border-bottom-width: 5px;
+}
+.duo-btn-blue:active:not(:disabled) {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+}
+.duo-btn-blue:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.duo-btn-orange {
+  background-color: var(--duo-orange);
+  border-bottom: 4px solid var(--duo-orange-dark);
+  color: var(--duo-btn-orange-text);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.duo-btn-orange:hover:not(:disabled) {
+  background-color: #ffaa1a;
+  transform: translateY(-1px);
+  border-bottom-width: 5px;
+}
+.duo-btn-orange:active:not(:disabled) {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+}
+.duo-btn-orange:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.duo-btn-yellow {
+  background-color: var(--duo-yellow);
+  border-bottom: 4px solid var(--duo-yellow-dark);
+  color: var(--duo-btn-yellow-text);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.duo-btn-yellow:hover:not(:disabled) {
+  background-color: #ffd21a;
+  transform: translateY(-1px);
+  border-bottom-width: 5px;
+}
+.duo-btn-yellow:active:not(:disabled) {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+}
+
+.duo-btn-red {
+  background-color: var(--duo-red);
+  border-bottom: 4px solid var(--duo-red-dark);
+  color: var(--duo-btn-red-text);
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.duo-btn-red:hover:not(:disabled) {
+  background-color: #ff5f5f;
+  transform: translateY(-1px);
+  border-bottom-width: 5px;
+}
+.duo-btn-red:active:not(:disabled) {
+  transform: translateY(4px);
+  border-bottom-width: 0px;
+}
+
+.duo-btn-white {
+  background-color: #ffffff;
+  border: 2px solid #e5e5e5;
+  border-bottom: 5px solid #e5e5e5;
+  color: #3c3c3c;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  border-radius: 16px;
+  transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.duo-btn-white:hover:not(:disabled) {
+  background-color: #f7f7f7;
+  transform: translateY(-1px);
+  border-bottom-width: 6px;
+}
+.duo-btn-white:active:not(:disabled) {
+  transform: translateY(3px);
+  border-bottom-width: 2px;
+}
+
+/* Playful Card */
+.duo-card {
+  background-color: #ffffff;
+  border: 2px solid #e5e5e5;
+  border-bottom: 5px solid #e5e5e5;
+  border-radius: 20px;
+}
+
+/* Selection bubble classes */
+.duo-option-btn {
+  background-color: #ffffff;
+  border: 2px solid #e5e5e5;
+  border-bottom: 5px solid #e5e5e5;
+  border-radius: 16px;
+  text-align: left;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  color: #334155;
+  transition: all 0.15s ease-out;
+}
+.duo-option-btn:hover:not(:disabled) {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  border-bottom-width: 6px;
+}
+.duo-option-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+/* Selected option style */
+.duo-option-btn-selected {
+  background-color: var(--comfort-blue-bg);
+  border: 2px solid var(--comfort-blue-border);
+  border-bottom: 5px solid var(--comfort-blue-border);
+  color: var(--comfort-blue-text);
+}
+
+/* Correct option style */
+.duo-option-btn-correct {
+  background-color: var(--comfort-green-bg);
+  border: 2px solid var(--comfort-green-border);
+  border-bottom: 5px solid var(--comfort-green-border);
+  color: var(--comfort-green-text);
+}
+
+/* Incorrect option style */
+.duo-option-btn-incorrect {
+  background-color: var(--comfort-red-bg);
+  border: 2px solid var(--comfort-red-border);
+  border-bottom: 5px solid var(--comfort-red-border);
+  color: var(--comfort-red-text);
+}
+
+/* Beautiful custom style for unselected option letter badges to force light-mode appearance */
+.duo-option-badge-unselected {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+/* ==========================================
+   HIGH-CONTRAST READABILITY OVERRIDES
+   Optimized for maximum legibility in both light & dark modes
+   ========================================== */
+
+/* Light Mode: Faded Slate colors converted to crisp, highly readable dark charcoal and slate tones */
+html:not(.dark) .text-slate-100 { color: #0f172a !important; }
+html:not(.dark) .text-slate-200 { color: #1e293b !important; }
+html:not(.dark) .text-slate-300 { color: #2e3d52 !important; }
+html:not(.dark) .text-slate-400 { color: #475569 !important; }
+html:not(.dark) .text-slate-500 { color: #334155 !important; }
+html:not(.dark) .text-slate-600 { color: #1e293b !important; }
+html:not(.dark) .text-slate-700 { color: #0f172a !important; }
+html:not(.dark) .text-slate-800 { color: #020617 !important; }
+html:not(.dark) .text-slate-900 { color: #000000 !important; }
+html:not(.dark) .text-slate-950 { color: #000000 !important; }
+
+/* Dark Mode: Ensure slate colors are bright, vivid, and highly legible on dark backgrounds */
+html.dark .text-slate-100 { color: #f8fafc !important; }
+html.dark .text-slate-200 { color: #f1f5f9 !important; }
+html.dark .text-slate-300 { color: #cbd5e1 !important; }
+html.dark .text-slate-400 { color: #e2e8f0 !important; }
+html.dark .text-slate-500 { color: #cbd5e1 !important; }
+html.dark .text-slate-600 { color: #f1f5f9 !important; }
+html.dark .text-slate-700 { color: #f8fafc !important; }
+html.dark .text-slate-800 { color: #f8fafc !important; }
+html.dark .text-slate-900 { color: #ffffff !important; }
+html.dark .text-slate-950 { color: #ffffff !important; }
+
+/* Ensure blue and sky highlight texts are clear and readable in light mode */
+html:not(.dark) .text-[#1899d6] { color: #0284c7 !important; }
+html:not-[#1cb0f6] .text-sky-600 { color: #0369a1 !important; }
+html:not(.dark) .text-sky-600 { color: #0369a1 !important; }
+html:not(.dark) .text-sky-500 { color: #0369a1 !important; }
+html:not(.dark) .text-sky-400 { color: #0284c7 !important; }
+
+/* Ensure blue and sky highlight texts are bright in dark mode */
+html.dark .text-[#1899d6] { color: #38bdf8 !important; }
+html.dark .text-sky-600 { color: #7dd3fc !important; }
+html.dark .text-sky-500 { color: #7dd3fc !important; }
+html.dark .text-sky-400 { color: #38bdf8 !important; }
+
+html:not(.dark) .text-[#ff9600] { color: #d97706 !important; }
+html:not(.dark) .text-[#58cc02] { color: #16a34a !important; }
+
+html.dark .text-[#ff9600] { color: #fbbf24 !important; }
+html.dark .text-[#58cc02] { color: #4ade80 !important; }
+
+/* Additional layout overrides for extremely comfortable margins and modern visual separation */
+.duo-card p {
+  line-height: 1.6;
+}
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.025em;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   FORCE LIGHT & CLEAN WHITE / LIGHT BLUE THEME FOR ADMIN PANEL (ignores dark mode)
+   ========================================================================== */
+#adminPanel {
+  background-color: #ffffff !important;
+  background-image: linear-gradient(to bottom right, #ffffff, #f0f9ff 60%, #e0f2fe) !important;
+  color: #1e293b !important;
+  border-color: #e2e8f0 !important;
+}
+
+#adminPanel aside {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+#adminPanel main {
+  background-color: transparent !important;
+}
+
+/* Force container backgrounds inside #adminPanel to be white/light */
+#adminPanel .bg-white,
+#adminPanel .dark\:bg-slate-900,
+#adminPanel .bg-slate-50,
+#adminPanel .dark\:bg-slate-950,
+#adminPanel .bg-slate-100,
+#adminPanel .dark\:bg-slate-800,
+#adminPanel .bg-slate-950\/45,
+#adminPanel .bg-slate-50\/45 {
+  background-color: #ffffff !important;
+}
+
+#adminPanel .bg-slate-50,
+#adminPanel .bg-slate-50\/45,
+#adminPanel .bg-slate-50\/20,
+#adminPanel .bg-slate-900\/20,
+#adminPanel .bg-slate-800\/40,
+#adminPanel .bg-slate-50.dark\:bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+
+#adminPanel .bg-slate-100,
+#adminPanel .bg-slate-100.dark\:bg-slate-950 {
+  background-color: #f1f5f9 !important;
+}
+
+/* Text color overrides to force high contrast light mode text inside #adminPanel */
+#adminPanel .text-slate-900,
+#adminPanel .dark\:text-white,
+#adminPanel h2,
+#adminPanel h3 {
+  color: #020617 !important;
+}
+
+#adminPanel .text-slate-800,
+#adminPanel .dark\:text-slate-100 {
+  color: #0f172a !important;
+}
+
+#adminPanel .text-slate-700,
+#adminPanel .dark\:text-slate-200 {
+  color: #1e293b !important;
+}
+
+#adminPanel .text-slate-600,
+#adminPanel .dark\:text-slate-300 {
+  color: #334155 !important;
+}
+
+#adminPanel .text-slate-500,
+#adminPanel .dark\:text-slate-400 {
+  color: #475569 !important;
+}
+
+#adminPanel .text-slate-400 {
+  color: #64748b !important;
+}
+
+/* Form controls and inputs inside #adminPanel */
+#adminPanel input,
+#adminPanel select,
+#adminPanel textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+#adminPanel input::placeholder,
+#adminPanel textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Table header and borders */
+#adminPanel thead tr {
+  background-color: #f8fafc !important;
+}
+
+#adminPanel tr,
+#adminPanel th,
+#adminPanel td,
+#adminPanel .border-2,
+#adminPanel .border-r-2,
+#adminPanel .border-b-2 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Non-active buttons and lists inside #adminPanel */
+#adminPanel button.border-slate-200,
+#adminPanel button.bg-white {
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border-color: #e2e8f0 !important;
+}
+
+#adminPanel button.border-slate-200:hover,
+#adminPanel button.bg-white:hover {
+  background-color: #f8fafc !important;
+}
+
+#adminPanel .text-rose-500 {
+  color: #ef4444 !important;
+}
+
+/* ==========================================================================
+   FORCE LIGHT & CLEAN WHITE / LIGHT BLUE THEME FOR QUIZ CONFIGURATION MODALS & ADMIN LOGIN & GENERAL DIALOGS
+   ========================================================================== */
+#customQuizModal,
+#trainPickerModal,
+#adminLoginModal,
+#generalModal {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #e2e8f0 !important;
+}
+
+#customQuizModal .bg-white,
+#trainPickerModal .bg-white,
+#adminLoginModal .bg-white,
+#generalModal .bg-white,
+#customQuizModal .dark\:bg-slate-900,
+#trainPickerModal .dark\:bg-slate-900,
+#adminLoginModal .dark\:bg-slate-950,
+#generalModal .dark\:bg-slate-900 {
+  background-color: #ffffff !important;
+}
+
+/* Force container backgrounds inside them to be light */
+#customQuizModal .bg-slate-100\/90,
+#customQuizModal .dark\:bg-slate-800\/60,
+#trainPickerModal .bg-slate-50,
+#trainPickerModal .dark\:bg-slate-800\/40,
+#adminLoginModal .bg-slate-50,
+#adminLoginModal .dark\:bg-slate-900,
+#generalModal .bg-slate-50,
+#generalModal .dark\:bg-slate-900 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Scrollable containers and unselected buttons */
+#customQuizModal button:not(.bg-sky-500):not(.bg-sky-50):not(.bg-\[\#58cc02\]),
+#trainPickerModal button:not(.bg-\[\#58cc02\]),
+#adminLoginModal button:not(.bg-\[\#58cc02\]),
+#generalModal button {
+  /* Default unselected state */
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+#customQuizModal button:not(.bg-sky-500):not(.bg-sky-50):not(.bg-\[\#58cc02\]):hover,
+#trainPickerModal button:not(.bg-\[\#58cc02\]):hover,
+#adminLoginModal button:not(.bg-\[\#58cc02\]):hover,
+#generalModal button:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Override the specific button states */
+#customQuizModal .bg-sky-50,
+#customQuizModal .dark\:bg-sky-950\/40 {
+  background-color: #f0f9ff !important;
+  border-color: #38bdf8 !important;
+  color: #0369a1 !important;
+}
+
+/* Selected button text font black */
+#customQuizModal .text-sky-900,
+#customQuizModal .dark\:text-sky-100 {
+  color: #0369a1 !important;
+}
+
+/* Non-selected category / topic list items */
+#customQuizModal .border-slate-300,
+#customQuizModal .dark\:border-slate-700 {
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+/* Text color overrides for high contrast light mode inside the modals */
+#customQuizModal .text-slate-950,
+#customQuizModal .dark\:text-white,
+#trainPickerModal .text-slate-900,
+#trainPickerModal .dark\:text-slate-100,
+#adminLoginModal .text-slate-900,
+#adminLoginModal .dark\:text-white,
+#generalModal .text-slate-950,
+#generalModal .dark\:text-white,
+#customQuizModal h2,
+#trainPickerModal h2,
+#adminLoginModal h2,
+#generalModal h2,
+#generalModal h3 {
+  color: #020617 !important;
+}
+
+#customQuizModal .text-slate-850,
+#customQuizModal .dark\:text-slate-200,
+#trainPickerModal .text-slate-800,
+#trainPickerModal .dark\:text-slate-100,
+#adminLoginModal .text-slate-500,
+#adminLoginModal .dark\:text-slate-400,
+#generalModal .text-slate-800,
+#generalModal .dark\:text-slate-200 {
+  color: #1e293b !important;
+}
+
+#customQuizModal .text-slate-650,
+#customQuizModal .dark\:text-slate-300,
+#customQuizModal .text-slate-600,
+#customQuizModal .dark\:text-slate-300,
+#trainPickerModal .text-slate-550,
+#trainPickerModal .dark\:text-slate-300 {
+  color: #334155 !important;
+}
+
+#customQuizModal .text-slate-500,
+#customQuizModal .dark\:text-slate-400,
+#trainPickerModal .text-slate-500,
+#trainPickerModal .dark\:text-slate-400 {
+  color: #475569 !important;
+}
+
+#customQuizModal .text-slate-400,
+#trainPickerModal .text-slate-400,
+#adminLoginModal .text-slate-400,
+#adminLoginModal .dark\:text-slate-400,
+#generalModal .text-slate-400,
+#generalModal .dark\:text-slate-400 {
+  color: #64748b !important;
+}
+
+#customQuizModal .text-sky-600,
+#customQuizModal .dark\:text-sky-400 {
+  color: #0284c7 !important;
+}
+
+/* Range input accent */
+#customQuizModal input[type="range"] {
+  accent-color: #0284c7 !important;
+}
+
+/* Mode toggles (Testim, Stervitje) active state */
+#customQuizModal .bg-sky-500,
+#customQuizModal .dark\:bg-sky-500 {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+}
+
+/* Admin Login Inputs & buttons styling */
+#adminLoginModal input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+#adminLoginModal input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Train picker inputs and select dropdowns */
+#trainPickerModal select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+#trainPickerModal select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Info box / badges */
+#customQuizModal .bg-sky-500\/10,
+#customQuizModal .dark\:bg-sky-500\/10 {
+  background-color: #f0f9ff !important;
+  border-color: #bae6fd !important;
+  color: #0369a1 !important;
+}
+
+#trainPickerModal .bg-slate-50,
+#trainPickerModal .dark\:bg-slate-800\/40 {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+#adminLoginModal .bg-amber-50,
+#adminLoginModal .dark\:bg-amber-950\/20 {
+  background-color: #fffbeb !important;
+  border-color: #fde047 !important;
+}
+
+/* Green button style override */
+#customQuizModal button.bg-\[\#58cc02\],
+#trainPickerModal button.bg-\[\#58cc02\],
+#adminLoginModal button.bg-\[\#58cc02\] {
+  background-color: #58cc02 !important;
+  color: #ffffff !important;
+  border-color: #3d8c02 !important;
+}
+
+#customQuizModal button.bg-\[\#58cc02\]:hover,
+#trainPickerModal button.bg-\[\#58cc02\]:hover,
+#adminLoginModal button.bg-\[\#58cc02\]:hover {
+  background-color: #46a302 !important;
+}
+
+/* Cancel buttons */
+#customQuizModal button.text-slate-500,
+#trainPickerModal button.text-slate-500,
+#adminLoginModal button.text-slate-600,
+#generalModal button.text-slate-900,
+#generalModal button.bg-slate-100 {
+  color: #475569 !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+#customQuizModal button.text-slate-500:hover,
+#trainPickerModal button.text-slate-500:hover,
+#adminLoginModal button.text-slate-600:hover,
+#generalModal button.text-slate-900:hover,
+#generalModal button.bg-slate-100:hover {
+  background-color: #f8fafc !important;
+}
+
+/* ==========================================================================
+   FORCE PREMIUM LIGHT BLUE THEME FOR QUICK START TOUR MODAL
+   ========================================================================== */
+#quickStartTourModal {
+  background-color: #f0f7ff !important; /* soft light blue canvas */
+  color: #1e293b !important; /* dark slate body */
+  border-color: #cbdff7 !important;
+}
+
+#quickStartTourModal .bg-white,
+#quickStartTourModal .dark\:bg-slate-950,
+#quickStartTourModal .dark\:bg-slate-900 {
+  background-color: #ffffff !important;
+}
+
+#quickStartTourModal .bg-slate-50,
+#quickStartTourModal .dark\:bg-slate-900\/60,
+#quickStartTourModal .dark\:bg-slate-900\/40,
+#quickStartTourModal .bg-sky-500\/5,
+#quickStartTourModal .bg-sky-50,
+#quickStartTourModal .dark\:bg-sky-950\/40 {
+  background-color: #e0f2fe !important; /* light sky blue */
+  border-color: #bae6fd !important;
+}
+
+/* Styling for secondary/unselected/back buttons in the tour modal */
+#quickStartTourModal .tour-back-btn,
+#quickStartTourModal .tour-rating-btn-unselected,
+#quickStartTourModal .tour-option-btn:not(.tour-option-correct):not(.tour-option-incorrect):not(.tour-option-muted) {
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+#quickStartTourModal .tour-back-btn:hover,
+#quickStartTourModal .tour-rating-btn-unselected:hover,
+#quickStartTourModal .tour-option-btn:not(.tour-option-correct):not(.tour-option-incorrect):not(.tour-option-muted):hover {
+  background-color: #f0f9ff !important;
+}
+
+/* Close button styling */
+#quickStartTourModal .tour-close-btn {
+  background-color: transparent !important;
+  border: none !important;
+  color: #64748b !important;
+}
+#quickStartTourModal .tour-close-btn:hover {
+  background-color: #e0f2fe !important;
+  color: #0369a1 !important;
+}
+
+/* Primary "Vazhdo" / "Përfundo" button - bright light blue */
+#quickStartTourModal .tour-primary-btn {
+  background-color: #0284c7 !important; /* sky-600 */
+  color: #ffffff !important;
+  border-color: #0284c7 !important;
+  border-bottom: 4px solid #0369a1 !important;
+}
+
+#quickStartTourModal .tour-primary-btn:hover {
+  background-color: #0ea5e9 !important; /* sky-500 */
+  color: #ffffff !important;
+}
+
+/* Green "Nis Stërvitje të Shpejtë" Action button */
+#quickStartTourModal .tour-action-green-btn {
+  background-color: #58cc02 !important; /* Duolingo/Sagely green */
+  color: #ffffff !important;
+  border-color: #58cc02 !important;
+  border-bottom: 4px solid #3a8501 !important;
+}
+
+#quickStartTourModal .tour-action-green-btn:hover {
+  background-color: #62e002 !important;
+  color: #ffffff !important;
+}
+
+/* Option States */
+#quickStartTourModal .tour-option-correct {
+  background-color: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+}
+
+#quickStartTourModal .tour-option-incorrect {
+  background-color: #fff1f2 !important;
+  border-color: #f43f5e !important;
+  color: #991b1b !important;
+}
+
+#quickStartTourModal .tour-option-muted {
+  opacity: 0.5 !important;
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #64748b !important;
+}
+
+/* Rating States */
+#quickStartTourModal .tour-rating-btn-selected {
+  background-color: #8b5cf6 !important;
+  border-color: #7c3aed !important;
+  border-bottom: 4px solid #5b21b6 !important;
+  color: #ffffff !important;
+}
+
+#quickStartTourModal h2,
+#quickStartTourModal h3,
+#quickStartTourModal h4,
+#quickStartTourModal h5 {
+  color: #0c4a6e !important; /* deep ocean blue headings */
+}
+
+#quickStartTourModal p,
+#quickStartTourModal span:not(.text-white) {
+  color: #334155 !important; /* readable dark body */
+}
+
+/* Maintain correct color overrides for key badges and status elements */
+#quickStartTourModal .text-sky-600,
+#quickStartTourModal .text-sky-500,
+#quickStartTourModal .text-sky-600 * {
+  color: #0284c7 !important;
+}
+
+#quickStartTourModal .bg-sky-500 {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+#quickStartTourModal .bg-emerald-500 {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+#quickStartTourModal .bg-violet-500 {
+  background-color: #8b5cf6 !important;
+  color: #ffffff !important;
+}
+
+#quickStartTourModal .bg-violet-600 {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+#quickStartTourModal .text-emerald-800 {
+  color: #065f46 !important;
+}
+
+#quickStartTourModal .text-rose-800 {
+  color: #991b1b !important;
+}
+
+#quickStartTourModal .border-emerald-500 {
+  border-color: #10b981 !important;
+}
+
+#quickStartTourModal .border-rose-500 {
+  border-color: #f43f5e !important;
+}
+
+#quickStartTourModal .bg-emerald-500\/10 {
+  background-color: #d1fae5 !important;
+  border-color: #a7f3d0 !important;
+  color: #065f46 !important;
+}
+
+#quickStartTourModal .bg-violet-500\/10 {
+  background-color: #ede9fe !important;
+  border-color: #ddd6fe !important;
+  color: #5b21b6 !important;
+}
+
+/* ==========================================================================
+   REPORT MODAL HIGH-CONTRAST & READABILITY OVERRIDES
+   Ensures perfect readability under all light, dark, or device-forced dark modes.
+   ========================================================================== */
+#reportModal {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+#reportModal h2 {
+  color: #0f172a !important; /* Extremely high contrast dark slate title */
+}
+
+#reportModal p {
+  color: #475569 !important; /* Clear, highly legible dark slate description */
+}
+
+#reportModal label {
+  color: #475569 !important; /* Bold, clear gray label */
+}
+
+#reportModal textarea {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+#reportModal textarea::placeholder {
+  color: #94a3b8 !important; /* High contrast placeholder */
+}
+
+/* Style the Cancel (Anulo) button specifically for high contrast */
+#reportModal button[type="button"] {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+#reportModal button[type="button"]:hover {
+  background-color: #f1f5f9 !important;
+}
+
+/* Ensure Rose Submit button has pristine high contrast */
+#reportModal button.bg-rose-500 {
+  background-color: #ef4444 !important;
+  border-color: #b91c1c !important;
+  color: #ffffff !important;
+}
+
+#reportModal button.bg-rose-500:hover {
+  background-color: #dc2626 !important;
+}
+
+/* Media Query to handle true dark mode / prefers-color-scheme: dark and ensure high contrast */
+@media (prefers-color-scheme: dark) {
+  #reportModal {
+    background-color: #1a2226 !important; /* Premium eye-comfortable dark background */
+    border-color: #2e3d44 !important;
+  }
+  
+  #reportModal h2 {
+    color: #ffffff !important; /* Pure white for absolute contrast */
+  }
+  
+  #reportModal p {
+    color: #cbd5e1 !important; /* Bright silver-gray description */
+  }
+  
+  #reportModal label {
+    color: #94a3b8 !important; /* Readable label */
+  }
+  
+  #reportModal textarea {
+    background-color: #11181c !important;
+    border-color: #2e3d44 !important;
+    color: #ffffff !important;
+  }
+  
+  #reportModal textarea::placeholder {
+    color: #64748b !important;
+  }
+  
+  #reportModal button[type="button"] {
+    background-color: #202b30 !important;
+    border-color: #2e3d44 !important;
+    color: #e2e8f0 !important;
+  }
+  
+  #reportModal button[type="button"]:hover {
+    background-color: #2a383f !important;
+  }
+}
+

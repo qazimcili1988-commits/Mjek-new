@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="sq">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mjek Hyrje - Përgatitja Klinike</title>
+    
+    <!-- PWA Meta and Links -->
+    <meta name="theme-color" content="#1cb0f6" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    
+    <!-- iOS support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Mjek Hyrje" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then((reg) => {
+              console.log('[PWA] Service Worker regjistruar me sukses:', reg.scope);
+            })
+            .catch((err) => {
+              console.error('[PWA] Regjistrimi i Service Worker dështoi:', err);
+            });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
