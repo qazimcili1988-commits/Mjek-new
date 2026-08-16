@@ -119,6 +119,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     answer: number;
     exp: string;
     approved: boolean;
+    imageUrl?: string;
+    svgMarkup?: string;
+    pageNumber?: number;
+    figureCrop?: { x: number; y: number; width: number; height: number };
   }[]>([]);
   const [pdfImportSuccessCount, setPdfImportSuccessCount] = useState<number | null>(null);
   const [lastSavedQuestions, setLastSavedQuestions] = useState<Question[]>([]);
@@ -3215,7 +3219,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 <div className="flex gap-2 justify-end">
                   <button
                     type="button"
-                    onClick={handlePreviewBulk}
+                    onClick={() => handlePreviewBulk()}
                     className="py-2.5 px-5 rounded-xl bg-[#1cb0f6] hover:bg-[#1899d6] text-white border-b-4 border-[#1899d6] active:translate-y-[2px] active:border-b-0 text-xs font-black transition-all"
                   >
                     Kontrollo Formatimin

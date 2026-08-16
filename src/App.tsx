@@ -121,77 +121,95 @@ export default function App() {
   // Sync state on mount
   useEffect(() => {
     const initApp = async () => {
-      // Force light mode unconditionally
       try {
-        setDarkMode(false);
-        document.documentElement.setAttribute('data-mode', 'light');
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('nsp_mode', 'light');
-      } catch (e) {
-        console.warn("localStorage setItem 'nsp_mode' failed", e);
-      }
-
-      // Set theme attribute
-      let theme = 'teal';
-      try {
-        theme = localStorage.getItem('nsp_theme') || 'teal';
-      } catch (e) {
-        console.warn("localStorage getItem 'nsp_theme' failed", e);
-      }
-      document.documentElement.setAttribute('data-theme', theme === 'teal' ? '' : theme);
-
-      // Preload questions asynchronously from IndexedDB/Cache (O(1) startup & virtually unlimited storage)
-      const qs = await preloadQuestions();
-
-      // Sync database caches
-      const cats = getCategories();
-      const tops = getTopics();
-      setCategories(cats);
-      setTopics(tops);
-      setQuestions(qs);
-
-      // Background server sync to fetch questions uploaded from Admin Panel across all users
-      syncWithServerStore().then((synced) => {
-        if (synced) {
-          setCategories(synced.categories);
-          setTopics(synced.topics);
-          setQuestions(synced.questions);
+        // Force light mode unconditionally
+        try {
+          setDarkMode(false);
+          document.documentElement.setAttribute('data-mode', 'light');
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('nsp_mode', 'light');
+        } catch (e) {
+          console.warn("localStorage setItem 'nsp_mode' failed", e);
         }
-      }).catch((e) => console.warn('Server sync startup error:', e));
 
-      // Sync progress
-      const rawProgress = getProgress();
-      const synced = syncDailyState(rawProgress);
-      setProgress(synced);
+        // Set theme attribute
+        let theme = 'teal';
+        try {
+          theme = localStorage.getItem('nsp_theme') || 'teal';
+        } catch (e) {
+          console.warn("localStorage getItem 'nsp_theme' failed", e);
+        }
+        document.documentElement.setAttribute('data-theme', theme === 'teal' ? '' : theme);
 
-      // Load saved active session
-      try {
-        const savedSessionStr = localStorage.getItem('nsp_active_session');
-        if (savedSessionStr) {
-          const savedSession = JSON.parse(savedSessionStr);
-          // Load it as paused by default so the user starts on Home page and can resume manually
-          savedSession.isPaused = true;
-          setActiveSession(savedSession);
-          
-          if (savedSession.mode === 'test' && savedSession.examRemainingSeconds !== undefined) {
-            setExamRemainingSeconds(savedSession.examRemainingSeconds);
+        // Preload questions asynchronously from IndexedDB/Cache (O(1) startup & virtually unlimited storage)
+        let qs: any[] = [];
+        try {
+          qs = await preloadQuestions();
+        } catch (err) {
+          console.warn('preloadQuestions error, using getQuestions fallback:', err);
+          qs = getQuestions();
+        }
+
+        // Sync database caches
+        try {
+          const cats = getCategories();
+          const tops = getTopics();
+          setCategories(cats);
+          setTopics(tops);
+          setQuestions(qs || []);
+        } catch (err) {
+          console.warn('Error setting initial categories/topics/questions:', err);
+        }
+
+        // Background server sync to fetch questions uploaded from Admin Panel across all users
+        syncWithServerStore().then((synced) => {
+          if (synced) {
+            setCategories(synced.categories);
+            setTopics(synced.topics);
+            setQuestions(synced.questions);
           }
+        }).catch((e) => console.warn('Server sync startup error (normal on static host):', e));
+
+        // Sync progress
+        try {
+          const rawProgress = getProgress();
+          const synced = syncDailyState(rawProgress);
+          setProgress(synced);
+        } catch (err) {
+          console.warn('Error syncing progress:', err);
+          setProgress(getProgress());
         }
-      } catch (e) {
-        console.error("Error loading saved session", e);
-      }
 
-      setIsDbReady(true);
+        // Load saved active session
+        try {
+          const savedSessionStr = localStorage.getItem('nsp_active_session');
+          if (savedSessionStr) {
+            const savedSession = JSON.parse(savedSessionStr);
+            savedSession.isPaused = true;
+            setActiveSession(savedSession);
+            
+            if (savedSession.mode === 'test' && savedSession.examRemainingSeconds !== undefined) {
+              setExamRemainingSeconds(savedSession.examRemainingSeconds);
+            }
+          }
+        } catch (e) {
+          console.error("Error loading saved session", e);
+        }
 
-      // Auto-trigger Quick Start for new users
-      let completed = 'false';
-      try {
-        completed = localStorage.getItem('nsp_quickstart_completed') || 'false';
-      } catch (e) {
-        console.warn("localStorage getItem 'nsp_quickstart_completed' failed", e);
-      }
-      if (completed !== 'true') {
-        setIsQuickStartOpen(true);
+        // Auto-trigger Quick Start for new users
+        let completed = 'false';
+        try {
+          completed = localStorage.getItem('nsp_quickstart_completed') || 'false';
+        } catch (e) {
+          console.warn("localStorage getItem 'nsp_quickstart_completed' failed", e);
+        }
+        if (completed !== 'true') {
+          setIsQuickStartOpen(true);
+        }
+      } catch (globalInitErr) {
+        console.error('Fatal initialization error in initApp:', globalInitErr);
+      } finally {
+        setIsDbReady(true);
       }
     };
 

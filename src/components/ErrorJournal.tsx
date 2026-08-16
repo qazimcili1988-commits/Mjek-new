@@ -22,7 +22,7 @@ interface ErrorJournalProps {
   progress: UserProgress;
   onToggleBookmark: (qId: string) => void;
   onStartQuizWithQuestions: (questions: Question[]) => void;
-  onStartWrongCorrectionMode: () => void;
+  onStartWrongCorrectionMode?: () => void;
 }
 
 export const ErrorJournal: React.FC<ErrorJournalProps> = ({

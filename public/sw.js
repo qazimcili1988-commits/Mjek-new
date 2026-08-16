@@ -1,17 +1,22 @@
-const CACHE_NAME = 'mjek-hyrje-v1';
+const CACHE_NAME = 'mjek-hyrje-v2';
 const ASSETS_TO_CACHE = [
   './',
-  'index.html',
   'manifest.json',
   'icon.svg',
 ];
 
-// Install Event: cache initial assets
+// Install Event: cache initial assets safely
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(CACHE_NAME).then(async (cache) => {
       console.log('[Service Worker] Caching app shell');
-      return cache.addAll(ASSETS_TO_CACHE);
+      for (const asset of ASSETS_TO_CACHE) {
+        try {
+          await cache.add(asset);
+        } catch (e) {
+          console.warn('[Service Worker] Could not cache asset:', asset, e);
+        }
+      }
     }).then(() => self.skipWaiting())
   );
 });
@@ -34,7 +39,7 @@ self.addEventListener('activate', (event) => {
 
 // Fetch Event: Cache-First or Network-Fallback with dynamic caching
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests and local/same-origin assets
+  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
   const url = new URL(event.request.url);
@@ -47,10 +52,10 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cached response, but fetch fresh copy in the background (stale-while-revalidate) for non-static files
+        // Return cached response, but fetch fresh copy in the background for non-static files
         if (!url.pathname.includes('/assets/')) {
           fetch(event.request).then((networkResponse) => {
-            if (networkResponse.status === 200) {
+            if (networkResponse && networkResponse.status === 200) {
               caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
             }
           }).catch(() => {/* ignore network failures */});
@@ -60,7 +65,6 @@ self.addEventListener('fetch', (event) => {
 
       // If not in cache, fetch from network
       return fetch(event.request).then((networkResponse) => {
-        // Check if we received a valid response
         if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
           return networkResponse;
         }
@@ -72,12 +76,15 @@ self.addEventListener('fetch', (event) => {
         });
 
         return networkResponse;
-      }).catch(() => {
+      }).catch(async () => {
         // Fallback for offline page or index.html when user is offline
         if (event.request.mode === 'navigate') {
-          return caches.match('./').then(res => res || caches.match('index.html'));
+          const fallback = await caches.match('./');
+          if (fallback) return fallback;
         }
+        return new Response('Offline', { status: 503, statusText: 'Offline' });
       });
     })
   );
 });
+
