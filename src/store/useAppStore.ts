@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Category, Topic, Question, UserProgress, ActiveSession, ActiveTab } from '../types';
+import { getProgress, getCategories, getTopics, getQuestions } from '../utils/storage';
 
 interface AppState {
   activeTab: ActiveTab;
@@ -69,10 +70,10 @@ export const useAppStore = create<AppState>((set) => {
   return {
     activeTab: 'home',
     darkMode: false,
-    progress: null,
-    categories: [],
-    topics: [],
-    questions: [],
+    progress: getProgress(),
+    categories: getCategories(),
+    topics: getTopics(),
+    questions: getQuestions(),
     activeSession: null,
     examRemainingSeconds: null,
     isTrainPickerOpen: false,
@@ -91,7 +92,7 @@ export const useAppStore = create<AppState>((set) => {
     adminLockoutRemaining: 0,
     logoClickCount: 0,
     lastLogoClickTime: 0,
-    isDbReady: false,
+    isDbReady: true,
 
     // Actions
     setActiveTab: (tab) => set({ activeTab: tab }),
