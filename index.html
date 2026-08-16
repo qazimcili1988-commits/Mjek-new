@@ -38,6 +38,35 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Fallback detector for static hosting without compiler (e.g. GitHub Pages branch deployment) -->
+    <script>
+      setTimeout(() => {
+        const root = document.getElementById('root');
+        if (root && root.children.length === 0) {
+          root.innerHTML = `
+            <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f172a; color: #f8fafc; font-family: ui-sans-serif, system-ui, sans-serif; padding: 24px; text-align: center;">
+              <div style="max-width: 480px; width: 100%; background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 28px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+                <div style="font-size: 40px; margin-bottom: 16px;">🩺</div>
+                <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 10px 0; color: #38bdf8;">Mjek Hyrje - Aktivizimi në GitHub</h2>
+                <p style="font-size: 13px; color: #94a3b8; line-height: 1.6; margin-bottom: 20px;">
+                  Aplikacioni po ngarkohet. Nëse jeni në <strong>GitHub Pages</strong> dhe shihni këtë mesazh, GitHub ka nevojë të aktivizojë ndërtimin automatik (Actions).
+                </p>
+                <div style="background: #0f172a; border-radius: 12px; padding: 14px; text-align: left; font-size: 12px; color: #cbd5e1; margin-bottom: 20px; border: 1px solid #334155; line-height: 1.7;">
+                  <strong style="color: #4ade80;">Si ta aktivizoni në GitHub:</strong><br/>
+                  1. Shkoni te <strong>Settings</strong> të repozitorit në GitHub.<br/>
+                  2. Zgjidhni <strong>Pages</strong> në menunë majtas.<br/>
+                  3. Nën <strong>Source</strong>, zgjidhni <strong style="color: #38bdf8;">"GitHub Actions"</strong>.
+                </div>
+                <button onclick="window.location.reload()" style="background: #0284c7; color: white; border: none; padding: 10px 20px; font-size: 13px; font-weight: bold; border-radius: 10px; cursor: pointer;">
+                  Rifresko Faqen
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }, 3500);
+    </script>
   </body>
 </html>
 

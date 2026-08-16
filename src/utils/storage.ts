@@ -372,6 +372,8 @@ export const publishToServerStore = async (
       body: JSON.stringify(payload),
     });
     if (!res.ok) return false;
+    const contentType = res.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) return false;
     const data = await res.json();
     return !!data.success;
   } catch (err) {
@@ -384,8 +386,10 @@ export const syncWithServerStore = async (): Promise<{ questions: Question[]; ca
   try {
     const res = await fetch('/api/shared-data');
     if (!res.ok) return null;
+    const contentType = res.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) return null;
     const data = await res.json();
-    if (!data.success) return null;
+    if (!data || !data.success) return null;
 
     let updatedQuestions = false;
     let updatedCategories = false;
